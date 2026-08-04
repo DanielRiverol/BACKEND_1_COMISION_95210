@@ -34,11 +34,11 @@ export default class ServiceManager {
             ... serviceData
         }
         services.push(newService);
-        await this.#guardarServicios(newService)
+        await this.#guardarServicios(services)
         return newService
     }
 
-    async update(id, newdata) {
+    async actualizar(id, newdata) {
         const services = await this.#leerServicios();
         const index = services.findIndex(service => service.id === id);
         if (index === -1) return null;
@@ -49,6 +49,14 @@ export default class ServiceManager {
         }
         await this.#guardarServicios(services);
         return services[index];
+    }
+
+    async borrar(id) {
+        const services = await this.#leerServicios();
+        const newServices = services.filter(service => service.id !== id);
+        if (services.length === newServices.length) return false;
+        await this.#guardarServicios(newServices);
+        return true;
     }
 
 }
