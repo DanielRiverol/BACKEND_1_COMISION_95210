@@ -48,7 +48,7 @@ app.post("/users", validarUsuario, async (req, res) => {
   const nuevoUsuario = await userManager.crear(nombre, email);
   res.status(201).json(nuevoUsuario);
 });
-app.put("/users/:id",validarUsuario, async (req, res) => {
+app.put("/users/:id", validarUsuario, async (req, res) => {
   //  a desarrolar
   const { nombre, email } = req.body;
   const nuevoUsuario = await userManager.crear(nombre, email);
