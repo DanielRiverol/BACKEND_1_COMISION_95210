@@ -13,17 +13,28 @@ export const mostrarTodos = async (req, res) => {
    }
 }
 
-export const motrarPorId = async (req, res) => {
-    const id = req.params.id
-    try {
-        const service = await serviceServices.obtenerPorId(id);
+// export const motrarPorId = async (req, res) => {
+//     const id = req.params.id
+//     try {
+//         const service = await serviceServices.obtenerPorId(id);
         
         
-        res.status(200).json(service);
-    } catch (error) {
-        res.status(400).json({error: error.message});
-    }
-}
+//         res.status(200).json(service);
+//     } catch (error) {
+//         res.status(400).json({error: error.message});
+//     }
+// }
+
+//Al usar el método unificado ya no requerimos el mostrarPorId tampoco
+export const mostrarUnico = async (req, res) => {
+  const { identificador } = req.params;
+  try {
+    const service = await serviceServices.obtenerUnico(identificador);
+    res.status(200).json(service);
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
+};
 
 export const crear = async (req, res) => {
     const nuevoServicio = req.body

@@ -8,12 +8,16 @@ export default class ServiceMongoManager {
   async buscarPorId(id) {
     return await ServiceModel.findById(id);
   }
-
+  // creamos el metodo para buscar por slug
+  async buscarPorSlug(slug) {
+    return await ServiceModel.findOne({ slug: slug });
+  }
+  
   async crear(serviceData) {
     return await ServiceModel.create(serviceData);
   }
 
-  async actualizar(id, newdata) {
+  async actualizar(id, newData) {
     return await ServiceModel.findByIdAndUpdate(id, newData, { new: true });
   }
 

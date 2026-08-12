@@ -6,7 +6,7 @@ const serviceSchema = new mongoose.Schema({
   slug: String,
   precio: { type: Number, required: true },
 });
-
+// A partir de las últimas versiones de mongoose la funcion next() ya no es necesaria. 
 serviceSchema.pre("save", function () {
   if (this.isModified("nombre")) {
     this.slug = slugGenerator(this.nombre);

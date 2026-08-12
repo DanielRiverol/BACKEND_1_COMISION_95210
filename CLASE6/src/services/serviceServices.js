@@ -1,5 +1,6 @@
 import ServiceRepository from "../repositories/serviceRepository.js";
-
+// importamos mongoose
+import mongoose from "mongoose";
 export default class ServiceServices {
   constructor(service = new ServiceRepository()) {
     this.service = service;
@@ -13,8 +14,23 @@ export default class ServiceServices {
     return services;
   }
 
-  async obtenerPorId(id) {
-    const service = await this.service.obtenerPorId(id);
+  // async obtenerPorId(id) {
+  //   const service = await this.service.obtenerPorId(id);
+  //   if (!service) {
+  //     throw new Error("No se encuentra el servicio...");
+  //   }
+  //   return service;
+  // }
+
+  //Método unificado para reemplazar 'obtenerPorId'
+  async obtenerUnico(identificador) {
+    let service;
+    // comprueba que lo que estamos recibiendo es un id de mongo y si no lo es busca por slug
+    if (mongoose.isValidObjectId(identificador)) {
+      service = await this.service.obtenerPorId(identificador);
+    } else {
+      service = await this.service.obtenerPorSlug(identificador);
+    }
     if (!service) {
       throw new Error("No se encuentra el servicio...");
     }
